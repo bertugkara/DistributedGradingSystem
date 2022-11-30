@@ -1,9 +1,9 @@
 This is an Semester Project for Introduction to Web Based Development class of Ankara University Computer Engineering department.
 
 Collaborators:
-Bertuğ KARA
-HİLAL OKAN
-OSMAN BUĞRA DAĞLI
+Bertuğ KARA-
+HİLAL OKAN-
+OSMAN BUĞRA DAĞLI-
 KEREM ALİ AKYÜZ
 
 # Distributed Student Grading System
