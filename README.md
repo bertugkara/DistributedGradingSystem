@@ -1,4 +1,12 @@
-# DistributedStudentGradingSystem
+This is an Semester Project for Introduction to Web Based Development class of Ankara University Computer Engineering department.
+
+Collaborators:
+Bertuğ KARA-
+HİLAL OKAN-
+OSMAN BUĞRA DAĞLI-
+KEREM ALİ AKYÜZ
+
+# Distributed Student Grading System
 
 Today, the number of students in universities is increasing day by day. For this reason, when the academic staff wants to assign homework to students within the scope of the courses, they put an additional burden on themselves and the research assistants. In addition, since universities do not have enough training staff, homework control tasks are left to research assistants. This situation prevents the people assigned to do research from doing their jobs. As a solution, there is a need for a project in which homework control can be transformed into a distributed system.
 
