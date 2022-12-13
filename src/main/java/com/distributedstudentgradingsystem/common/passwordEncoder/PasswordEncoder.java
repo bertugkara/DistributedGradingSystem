@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.common.BaseEntity;
+package com.distributedstudentgradingsystem.common.passwordEncoder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

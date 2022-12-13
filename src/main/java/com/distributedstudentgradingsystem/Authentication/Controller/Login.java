@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class Login {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -35,9 +36,12 @@ public class Login {
         UserDetailsManager userDetails = (UserDetailsManager) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(role -> role.getAuthority())
                 .collect(Collectors.toList());
-
+        /*Cookie cookie = new Cookie("token", jwt);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.addCookie(cookie);*/
         return ResponseEntity.ok(
-                new JwtResponse(jwt, userDetails.getUsername(), userDetails.getEmail(), userDetails.getId(), roles));
+          new JwtResponse(jwt, userDetails.getUsername(), userDetails.getEmail(), userDetails.getId(), roles));
     }
-
 }

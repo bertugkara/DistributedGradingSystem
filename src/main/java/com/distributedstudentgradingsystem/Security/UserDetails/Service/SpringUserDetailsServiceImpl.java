@@ -1,7 +1,7 @@
 package com.distributedstudentgradingsystem.Security.UserDetails.Service;
 
 import com.distributedstudentgradingsystem.Security.UserDetails.Entity.UserDetailsManager;
-import com.distributedstudentgradingsystem.Users.Admin.Entity.Admin;
+import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import com.distributedstudentgradingsystem.Users.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SpringUserDetailsServiceImpl implements SpringUserDetailsService {
 
-    private final UserRepository<Admin> adminRepository;
+    private final UserRepository<User> userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Admin byUsername = adminRepository.findByUsername(username);
+        User byUsername = userRepository.findByUsername(username);
         if (byUsername == null) {
             throw new UsernameNotFoundException("User not found");
         }

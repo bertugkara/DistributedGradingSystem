@@ -2,10 +2,10 @@ package com.distributedstudentgradingsystem.Role.entity;
 
 public enum UserRole {
 
-    ADMIN("Admin"),
-    STUDENT("Student"),
-    EXPERT("Expert"),
-    TEACHER("Teacher");
+    ADMIN("ADMIN"),
+    STUDENT("STUDENT"),
+    EXPERT("EXPERT"),
+    TEACHER("TEACHER");
 
     UserRole(String name) {
     }
