@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.Users.Registration;
+package com.distributedstudentgradingsystem.Registration;
 
 import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;
@@ -11,7 +11,7 @@ import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import com.distributedstudentgradingsystem.Users.User.Repository.UserRepository;
-import com.distributedstudentgradingsystem.common.BaseEntity.PasswordEncoder;
+import com.distributedstudentgradingsystem.common.passwordEncoder.PasswordEncoder;
 import com.distributedstudentgradingsystem.utilities.Result;
 import com.distributedstudentgradingsystem.utilities.SuccessResult;
 import lombok.RequiredArgsConstructor;

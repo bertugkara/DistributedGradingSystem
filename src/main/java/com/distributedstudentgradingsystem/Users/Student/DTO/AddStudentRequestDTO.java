@@ -1,5 +1,4 @@
-package com.distributedstudentgradingsystem.Users.Admin.Controller.DTO;
-
+package com.distributedstudentgradingsystem.Users.Student.DTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AddAdminRequestDTO {
+public class AddStudentRequestDTO {
+
     @NotBlank
     @Email
     private String email;

@@ -17,7 +17,5 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorValue("E")
 public class Expert extends User implements Serializable {
-
     private int age;
-
 }

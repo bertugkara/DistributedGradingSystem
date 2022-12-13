@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.Users.Registration;
+package com.distributedstudentgradingsystem.Registration;
 
 import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;

@@ -1,6 +1,6 @@
 package com.distributedstudentgradingsystem.Users.Admin.Mapper;
 
-import com.distributedstudentgradingsystem.Users.Admin.Controller.DTO.AddAdminRequestDTO;
+import com.distributedstudentgradingsystem.Users.Admin.DTO.AddAdminRequestDTO;
 import com.distributedstudentgradingsystem.Users.Admin.Entity.Admin;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
