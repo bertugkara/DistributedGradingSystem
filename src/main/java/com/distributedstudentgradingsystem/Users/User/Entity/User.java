@@ -1,6 +1,6 @@
 package com.distributedstudentgradingsystem.Users.User.Entity;
 
-import com.distributedstudentgradingsystem.Role.entity.Role;
+import com.distributedstudentgradingsystem.Users.Role.entity.Role;
 import com.distributedstudentgradingsystem.common.BaseEntity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;

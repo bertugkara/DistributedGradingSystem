@@ -3,8 +3,11 @@ package com.distributedstudentgradingsystem.Users.Student.Service;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 
 import java.util.List;
+import java.util.Set;
 
 public interface StudentService {
 
-    List<Student> bringStudentsWithIdList(List<Long> idList);
+    Student findById(Long id);
+    Set<Student> findByIdList(List<Long> idList);
+
 }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AddTeacherRequestDTO {
+public class TeacherAddRequestDTO {
 
     @NotBlank
     @Email

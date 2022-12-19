@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.Role.entity;
+package com.distributedstudentgradingsystem.Users.Role.entity;
 
 public enum UserRole {
 

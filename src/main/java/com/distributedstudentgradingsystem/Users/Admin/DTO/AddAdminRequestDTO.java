@@ -28,4 +28,5 @@ public class AddAdminRequestDTO {
     @NotBlank
     @Size(max = 50)
     private String password;
+
 }

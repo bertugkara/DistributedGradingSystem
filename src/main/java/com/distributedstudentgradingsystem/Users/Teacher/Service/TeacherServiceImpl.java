@@ -12,7 +12,10 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public Teacher bringTeacherById(Long id) {
-        return teacherRepository.findById(id).orElse(null);
+    public Teacher findById(Long id) {
+        if (id != null) {
+            return teacherRepository.findById(id).orElse(null);
+        }
+        return null;
     }
 }

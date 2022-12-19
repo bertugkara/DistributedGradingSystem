@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.Role.entity;
+package com.distributedstudentgradingsystem.Users.Role.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
