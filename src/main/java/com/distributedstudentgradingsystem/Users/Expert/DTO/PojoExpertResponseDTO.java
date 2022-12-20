@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PojoExpertResponseDTO {
+    private Long id;
     private String firstName;
     private String email;
     private String lastName;

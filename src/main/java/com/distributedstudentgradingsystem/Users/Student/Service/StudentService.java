@@ -10,4 +10,6 @@ public interface StudentService {
     Student findById(Long id);
     Set<Student> findByIdList(List<Long> idList);
 
+    List<Student> findAllStudents();
+
 }

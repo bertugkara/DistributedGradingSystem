@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
         componentModel = "spring")
 public interface StudentMapper {
@@ -16,4 +18,6 @@ public interface StudentMapper {
     Student dtoToEntity(AddStudentRequestDTO addStudentRequestDTO);
 
     PojoStudentResponseDTO entityToDTO(Student student);
+
+    List<PojoStudentResponseDTO> entityListToDtoList(List<Student> students);
 }

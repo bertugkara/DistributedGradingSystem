@@ -9,4 +9,7 @@ public interface ExpertService {
 
     Expert findById(Long id);
     Set<Expert> findByIdList(List<Long> idList);
+
+    List<Expert> findAllExperts();
+
 }

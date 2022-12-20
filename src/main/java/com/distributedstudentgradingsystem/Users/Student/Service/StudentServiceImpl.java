@@ -31,5 +31,10 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    @Override
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
+    }
+
 
 }
