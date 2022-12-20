@@ -21,7 +21,7 @@ public class ClassServiceImpl implements ClassService {
     private final ClassRepository classRepository;
 
     @Override
-    public Result addPojoClass(Class obj){
+    public Result addClass(Class obj){
         return new Result(classRepository.save(obj) != null);
     }
 

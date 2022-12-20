@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClassService {
 
-    Result addPojoClass(Class pojoClass);
+    Result addClass(Class pojoClass);
 
     List<Class> getAllClasses();
 

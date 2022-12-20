@@ -26,7 +26,7 @@ public class ClassController {
     @PostMapping(value = "add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Result add(@RequestBody @Valid ClassAddRequestDTO classAddRequestDTO) {
-        return classService.addPojoClass(classMapper.dtoToEntity(classAddRequestDTO));
+        return classService.addClass(classMapper.dtoToEntity(classAddRequestDTO));
     }
 
     @PostMapping(value = "getAll")
