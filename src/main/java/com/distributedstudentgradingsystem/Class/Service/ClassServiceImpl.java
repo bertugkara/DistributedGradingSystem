@@ -36,6 +36,11 @@ public class ClassServiceImpl implements ClassService {
         }
     }
 
+    @Override
+    public Class getOne(Long id) {
+        return classRepository.findById(id).orElse(null);
+    }
+
 
 }
 

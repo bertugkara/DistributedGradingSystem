@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClassResponseDTO {
-
+    private Long id;
     private String name;
     private String description;
     private String lessonCode;

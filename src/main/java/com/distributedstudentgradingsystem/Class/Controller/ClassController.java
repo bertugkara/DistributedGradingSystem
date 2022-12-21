@@ -29,9 +29,15 @@ public class ClassController {
         return classService.addClass(classMapper.dtoToEntity(classAddRequestDTO));
     }
 
-    @PostMapping(value = "getAll")
+    @GetMapping(value = "getAll")
     @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT','TEACHER','EXPERT')")
     public DataResult<List<ClassResponseDTO>> getAllClasses(){
         return new SuccessDataResult<>(classMapper.entityListToDtoList(classService.getAllClasses())) ;
+    }
+
+    @GetMapping(value = "getOne/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    public DataResult<ClassResponseDTO> getOne(@PathVariable(name = "id") Long id){
+        return new SuccessDataResult<>(classMapper.entityToDTO(classService.getOne(id))) ;
     }
 }

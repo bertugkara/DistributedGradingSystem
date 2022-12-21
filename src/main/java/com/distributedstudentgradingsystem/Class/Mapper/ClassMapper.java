@@ -38,6 +38,7 @@ public abstract class ClassMapper {
     })
     public abstract Class dtoToEntity(ClassAddRequestDTO classAddRequestDTO);
 
+    @Mapping(source = "id", target = "id")
     public abstract ClassResponseDTO entityToDTO(Class obj);
 
     public abstract List<ClassResponseDTO> entityListToDtoList(List<Class> classList);
