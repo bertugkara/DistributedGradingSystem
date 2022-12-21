@@ -3,12 +3,14 @@ package com.distributedstudentgradingsystem.Registration;
 import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;
 import com.distributedstudentgradingsystem.Exception.enums.RegistrationError;
-import com.distributedstudentgradingsystem.Role.entity.Role;
-import com.distributedstudentgradingsystem.Role.entity.UserRole;
-import com.distributedstudentgradingsystem.Role.repository.RoleRepository;
 import com.distributedstudentgradingsystem.Users.Admin.Entity.Admin;
 import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
+import com.distributedstudentgradingsystem.Users.Expert.Repository.ExpertRepository;
+import com.distributedstudentgradingsystem.Users.Role.entity.Role;
+import com.distributedstudentgradingsystem.Users.Role.entity.UserRole;
+import com.distributedstudentgradingsystem.Users.Role.repository.RoleRepository;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
+import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import com.distributedstudentgradingsystem.Users.User.Repository.UserRepository;
 import com.distributedstudentgradingsystem.common.passwordEncoder.PasswordEncoder;
@@ -18,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -25,6 +29,7 @@ import java.util.Set;
 public class RegistrationServiceImpl<T extends User> implements RegistrationService<T> {
 
     private final UserRepository<T> userRepository;
+    private final ExpertRepository expertRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -49,28 +54,28 @@ public class RegistrationServiceImpl<T extends User> implements RegistrationServ
         return new SuccessResult();
     }
 
+
     private Set<Role> fetchAndReturnRole(T entity) {
 
-        UserRole userRole;
+        List<UserRole> userRoleList = new ArrayList<>();
 
-        if(entity instanceof Admin){
-            userRole = UserRole.ADMIN;
-        }
-        else if (entity instanceof Student){
-            userRole = UserRole.STUDENT;
-        }
-        else if ( entity instanceof Expert){
-            userRole = UserRole.EXPERT;
-        }
-        else {
-            userRole = UserRole.TEACHER;
+        if (entity instanceof Admin) {
+            userRoleList.add(UserRole.ADMIN);
+        } else if (entity instanceof Student) {
+            userRoleList.add(UserRole.STUDENT);
+        } else if (entity instanceof Expert) {
+            userRoleList.add(UserRole.EXPERT);
+        } else if (entity instanceof Teacher) {
+            userRoleList.add(UserRole.TEACHER);
+            userRoleList.add(UserRole.EXPERT);
         }
 
-        Role byName = roleRepository.findByName(userRole);
+        List<Role> byName = roleRepository.findRolesByNameIn(userRoleList);
         Set<Role> roleSet = new java.util.HashSet<>();
         if (byName != null) {
-            roleSet.add(byName);
+            roleSet.addAll(byName);
         }
         return roleSet;
+
     }
 }

@@ -9,6 +9,8 @@ import com.distributedstudentgradingsystem.utilities.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ClassServiceImpl implements ClassService {
@@ -19,10 +21,27 @@ public class ClassServiceImpl implements ClassService {
     private final ClassRepository classRepository;
 
     @Override
-    public Result addPojoClass(Class pojoClass){
-        classRepository.save(pojoClass);
-        return new Result(true);
+    public Result addClass(Class obj){
+        return new Result(classRepository.save(obj) != null);
     }
+
+    @Override
+    public List<Class> getAllClasses() {
+        List<Class> classList = classRepository.findAll();
+        if(!classList.isEmpty()){
+            return classRepository.findAll();
+        }
+        else{
+            return null;
+        }
+    }
+
+    @Override
+    public Class getOne(Long id) {
+        return classRepository.findById(id).orElse(null);
+    }
+
+
 }
 
 

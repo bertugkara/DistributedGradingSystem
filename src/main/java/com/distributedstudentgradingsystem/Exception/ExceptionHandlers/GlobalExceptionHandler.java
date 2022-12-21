@@ -50,4 +50,9 @@ public class GlobalExceptionHandler {
     public Result usernameIsAlreadyUsing(EmailAlreadyInUseException exception){
         return new ErrorResult(exception.getMessage());
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result illegalArgumentException(IllegalArgumentException exception){
+        return new ErrorResult(exception.getMessage());
+    }
 }

@@ -5,6 +5,8 @@ import com.distributedstudentgradingsystem.Users.Teacher.Repository.TeacherRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
@@ -12,7 +14,15 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public Teacher bringTeacherById(Long id) {
-        return teacherRepository.findById(id).orElse(null);
+    public Teacher findById(Long id) {
+        if (id != null) {
+            return teacherRepository.findById(id).orElse(null);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Teacher> findAllTeachersAndConvertToResponseDTO() {
+        return teacherRepository.findAll();
     }
 }

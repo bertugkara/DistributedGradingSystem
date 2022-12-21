@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Primary
 public interface UserRepository<T extends User> extends JpaRepository<T, Long> {
@@ -12,4 +14,6 @@ public interface UserRepository<T extends User> extends JpaRepository<T, Long> {
 
     T findByUsername(String username);
 
+    List<User> findAllByIsEnabledTrue();
+    List<User> findAllByIsEnabledFalse();
 }
