@@ -5,6 +5,7 @@ import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingExcep
 import com.distributedstudentgradingsystem.Registration.RegistrationService;
 import com.distributedstudentgradingsystem.Users.Student.DTO.AddStudentRequestDTO;
 import com.distributedstudentgradingsystem.Users.Student.DTO.PojoStudentResponseDTO;
+import com.distributedstudentgradingsystem.Users.Student.DTO.StudentProfileResponseDTO;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import com.distributedstudentgradingsystem.Users.Student.Mapper.StudentMapper;
 import com.distributedstudentgradingsystem.Users.Student.Service.StudentService;
@@ -26,17 +27,28 @@ public class StudentController {
     private final RegistrationService<Student> registrationService;
     private final StudentService studentService;
 
+    private final StudentMapper studentMapper;
+
     @PostMapping(value = "add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Result add(@RequestBody @Valid AddStudentRequestDTO addStudentRequestDTO) throws EmailAlreadyInUseException, UsernameAlreadyIsUsingException {
-        return registrationService.register(StudentMapper.INSTANCE.dtoToEntity(addStudentRequestDTO));
+        return registrationService.register(studentMapper.dtoToEntity(addStudentRequestDTO));
     }
 
     @GetMapping(value = "getAll")
     @PreAuthorize("hasAuthority('ADMIN')")
     public DataResult<List<PojoStudentResponseDTO>> getAllStudents() {
         List<PojoStudentResponseDTO> pojoStudentResponseDTOList =
-               StudentMapper.INSTANCE.entityListToDtoList(studentService.findAllStudents());
+               studentMapper.entityListToDtoList(studentService.findAllStudents());
         return new DataResult<>( pojoStudentResponseDTOList , !pojoStudentResponseDTOList.isEmpty());
     }
+
+    @GetMapping(value = "whoAmI")
+    @PreAuthorize("hasAuthority('STUDENT')")
+    public DataResult<StudentProfileResponseDTO> whoAmI(@RequestParam Long id) {
+        StudentProfileResponseDTO studentProfileResponseDTO =
+                studentMapper.profileEntityToProfileDto(studentService.whoAmI(id));
+        return new DataResult<>(studentProfileResponseDTO, studentProfileResponseDTO != null);
+    }
+
 }

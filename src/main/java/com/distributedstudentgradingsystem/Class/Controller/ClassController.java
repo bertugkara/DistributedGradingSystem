@@ -36,7 +36,7 @@ public class ClassController {
     }
 
     @GetMapping(value = "getOne/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER','STUDENT','EXPERT')")
     public DataResult<ClassResponseDTO> getOne(@PathVariable(name = "id") Long id){
         return new SuccessDataResult<>(classMapper.entityToDTO(classService.getOne(id))) ;
     }

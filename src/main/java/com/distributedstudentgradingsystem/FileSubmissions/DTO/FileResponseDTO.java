@@ -14,10 +14,11 @@ import javax.persistence.Lob;
 @Getter
 @Setter
 public class FileResponseDTO {
-
+    private Long id;
     private String name;
     private String type;
     @Lob
     private byte[] data;
     private PojoStudentResponseDTO submissioner;
+    private String url;
 }

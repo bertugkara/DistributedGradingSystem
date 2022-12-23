@@ -12,4 +12,10 @@ public interface HomeworkService {
     Homework getOneHomework(Long id);
 
     List<Homework> getAllHomeworksByClassID(Long id);
+
+    List<Homework> getAllHomeworksByClassIDList(List<Long> idList);
+
+    List<Homework> getAllHomeworksByExpertId(Long id);
+
+    List<Homework> getAllHomeworksByCreatorId(Long id);
 }

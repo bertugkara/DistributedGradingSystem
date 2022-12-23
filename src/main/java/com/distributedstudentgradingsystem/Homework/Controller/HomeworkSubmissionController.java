@@ -1,11 +1,13 @@
 package com.distributedstudentgradingsystem.Homework.Controller;
 
+import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionAddRequest;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionResponseDTO;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Homework.Mapper.HomeworkSubmissionMapper;
 import com.distributedstudentgradingsystem.Homework.Service.HomeworkSubmission.HomeworkSubmissionService;
 import com.distributedstudentgradingsystem.utilities.DataResult;
-import com.distributedstudentgradingsystem.utilities.Result;
+import com.distributedstudentgradingsystem.utilities.SuccessDataResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +26,17 @@ public class HomeworkSubmissionController {
 
     private final HomeworkSubmissionService homeworkSubmissionService;
     private final HomeworkSubmissionMapper homeworkSubmissionMapper;
+    private final FileService fileService;
 
     @PostMapping(value = "addSubmission")
-    @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT','EXPERT')")
-    public Result addSubmission(@RequestPart("request") @Valid HomeworkSubmissionAddRequest request,
-                                @RequestPart("file") MultipartFile file) throws IOException {
+    @PreAuthorize("hasAnyAuthority('STUDENT')")
+    public DataResult addSubmission(@RequestPart("request") @Valid HomeworkSubmissionAddRequest request,
+                                    @RequestPart("file") MultipartFile file) throws IOException {
 
-        return homeworkSubmissionService.addHomeworkSubmission(
+        HomeworkSubmission homeworkSubmission = homeworkSubmissionService.addHomeworkSubmission(
                 homeworkSubmissionMapper.dtoToEntity(request)
                 , file);
+        return new SuccessDataResult(homeworkSubmissionMapper.entityToDTO(homeworkSubmission));
     }
 
     @GetMapping("getOneSubmission")
@@ -58,4 +62,5 @@ public class HomeworkSubmissionController {
                 homeworkSubmissionMapper.entityListToDTOList(homeworkSubmissionService.getAllSubmissionByHomeworkId(id));
         return new DataResult<>(homeworkSubmissionResponseDTOList, !homeworkSubmissionResponseDTOList.isEmpty());
     }
+
 }

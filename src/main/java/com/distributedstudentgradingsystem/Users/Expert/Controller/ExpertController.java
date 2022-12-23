@@ -5,6 +5,7 @@ import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;
 import com.distributedstudentgradingsystem.Registration.RegistrationServiceImpl;
 import com.distributedstudentgradingsystem.Users.Expert.DTO.ExpertAddRequestDTO;
+import com.distributedstudentgradingsystem.Users.Expert.DTO.ExpertProfileResponseDTO;
 import com.distributedstudentgradingsystem.Users.Expert.DTO.PojoExpertResponseDTO;
 import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
 import com.distributedstudentgradingsystem.Users.Expert.Mapper.ExpertMapper;
@@ -41,5 +42,12 @@ public class ExpertController {
         return registrationService.register(expertMapper.dtoToEntity(expertAddRequestDTO));
     }
 
+    @GetMapping(value = "whoAmI")
+    @PreAuthorize("hasAuthority('EXPERT')")
+    public DataResult<ExpertProfileResponseDTO> whoAmI(@RequestParam Long id) {
+        ExpertProfileResponseDTO expertProfileResponseDTO =
+                expertMapper.profileEntityToResponseDTO(expertService.whoAmI(id));
+        return new DataResult<>(expertProfileResponseDTO, expertProfileResponseDTO != null);
+    }
 
 }

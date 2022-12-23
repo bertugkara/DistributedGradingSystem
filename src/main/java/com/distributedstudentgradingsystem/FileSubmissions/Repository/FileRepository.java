@@ -8,5 +8,5 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface FileRepository extends JpaRepository<File,Integer> {
+public interface FileRepository extends JpaRepository<File,Long> {
 }

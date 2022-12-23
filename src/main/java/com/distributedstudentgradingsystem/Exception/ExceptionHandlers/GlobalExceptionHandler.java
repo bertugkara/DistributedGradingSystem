@@ -1,4 +1,4 @@
-package com.distributedstudentgradingsystem.Exception.ExceptionHandlers;
+/*package com.distributedstudentgradingsystem.Exception.ExceptionHandlers;
 
 
 import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
@@ -56,3 +56,4 @@ public class GlobalExceptionHandler {
         return new ErrorResult(exception.getMessage());
     }
 }
+*/

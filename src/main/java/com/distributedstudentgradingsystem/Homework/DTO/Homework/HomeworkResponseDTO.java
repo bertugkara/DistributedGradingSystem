@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter
@@ -16,23 +15,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HomeworkResponseDTO {
-    @FutureOrPresent
-    @NotBlank
+    private Long id;
     private LocalDate startDate;
 
-    @Future
-    @NotBlank
     private LocalDate endDate;
 
-    @NotBlank
-    @Size(max = 1000)
     private String description;
 
-    @NotNull
     private ClassResponseDTO classDTO;
 
     private PojoExpertResponseDTO expert;
 
-    @NotNull
     private PojoTeacherResponseDTO creator;
 }

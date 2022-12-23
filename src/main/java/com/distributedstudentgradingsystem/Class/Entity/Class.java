@@ -7,6 +7,7 @@ import com.distributedstudentgradingsystem.common.BaseEntity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "class")
 @NoArgsConstructor
 public class Class extends BaseEntity {
