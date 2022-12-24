@@ -1,6 +1,8 @@
 package com.distributedstudentgradingsystem.Homework.Entity;
 
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
+import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import com.distributedstudentgradingsystem.common.BaseEntity.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ import javax.validation.constraints.Size;
 @Table(name = "homework_submissions")
 public class HomeworkSubmission extends BaseEntity {
 
-    @Size(min = 0,max = 500)
+    @Size(min = 0, max = 500)
     private String description;
 
     @OneToOne
@@ -28,13 +30,21 @@ public class HomeworkSubmission extends BaseEntity {
     @NotBlank
     private File file;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     @NotBlank
     private Student owner;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "homework_id")
     @NotBlank
     private Homework homework;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointed_expert_id")
+    private Expert appointedExpert;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "submission")
+    private GradeSubmission gradeSubmission;
+
 }

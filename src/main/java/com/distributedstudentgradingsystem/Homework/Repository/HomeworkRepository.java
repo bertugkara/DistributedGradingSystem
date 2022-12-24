@@ -12,6 +12,7 @@ import java.util.List;
 public interface HomeworkRepository extends JpaRepository<Homework,Long> {
 
     List<Homework> findAllByLesson_Id(Long id);
+    List<Homework> findAllByLessonIdIn (List<Long> idList);
 
     List<Homework> findAllByCreator_Id(Long id);
 

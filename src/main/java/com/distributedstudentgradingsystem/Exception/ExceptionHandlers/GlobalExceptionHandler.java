@@ -2,6 +2,7 @@ package com.distributedstudentgradingsystem.Exception.ExceptionHandlers;
 
 
 import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
+import com.distributedstudentgradingsystem.Exception.StudentAlreadySubmittedThatHomeworkException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;
 import com.distributedstudentgradingsystem.utilities.ErrorResult;
 import com.distributedstudentgradingsystem.utilities.Result;
@@ -55,4 +56,10 @@ public class GlobalExceptionHandler {
     public Result illegalArgumentException(IllegalArgumentException exception){
         return new ErrorResult(exception.getMessage());
     }
+
+    @ExceptionHandler(StudentAlreadySubmittedThatHomeworkException.class)
+    public Result illegalArgumentException(StudentAlreadySubmittedThatHomeworkException exception){
+        return new ErrorResult(exception.getMessage());
+    }
+
 }

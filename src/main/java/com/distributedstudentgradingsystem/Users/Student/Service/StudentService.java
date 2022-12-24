@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Student.Service;
 
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
+import com.distributedstudentgradingsystem.Users.Student.Entity.StudentProfile;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -12,5 +13,7 @@ public interface StudentService {
     Set<Student> findByIdList(List<Long> idList);
 
     List<Student> findAllStudents();
+
+    StudentProfile whoAmI(Long id);
 
 }

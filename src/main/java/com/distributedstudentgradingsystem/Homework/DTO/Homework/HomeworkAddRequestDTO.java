@@ -29,6 +29,8 @@ public class HomeworkAddRequestDTO {
     @NotNull
     private Long classID;
 
+    private Long expertID;
+
     @NotNull
     private Long creatorID;
 }

@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        unmappedTargetPolicy = ReportingPolicy.WARN,
+@Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
+            unmappedTargetPolicy = ReportingPolicy.WARN,
         uses = {AdminService.class, TeacherService.class, StudentService.class, ExpertService.class,
                 AdminMapper.class, TeacherMapper.class, StudentMapper.class, ExpertMapper.class})
 public abstract class ClassMapper {
@@ -38,7 +38,9 @@ public abstract class ClassMapper {
     })
     public abstract Class dtoToEntity(ClassAddRequestDTO classAddRequestDTO);
 
-    @Mapping(source = "id", target = "id")
+    @Mapping(target = "expertList" , nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
+    @Mapping(target = "studentList" , nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
+    @Mapping(target = "instructor" , nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
     public abstract ClassResponseDTO entityToDTO(Class obj);
 
     public abstract List<ClassResponseDTO> entityListToDtoList(List<Class> classList);

@@ -15,7 +15,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,27 +36,25 @@ public class Homework extends BaseEntity {
     @Size(max = 1000)
     private String description;
 
-    @OneToMany
-    @JoinTable(name = "homework_and_submissions",
-            joinColumns = @JoinColumn(name ="homework_id"),
-            inverseJoinColumns = @JoinColumn(name = "submission_id")
-    )
-    private List<HomeworkSubmission> submission;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homework")
+    private Set<HomeworkSubmission> submissionSet;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id")
     private Class lesson;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "responsible_expert")
     private Expert expert;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id")
     private Teacher creator;
 
-    public void addSubmission(List<HomeworkSubmission> submissionsList)
-    {
-        this.submission=submissionsList;
+    public Boolean isStudentAlreadySubmittedBeforeForTheGivenHomework(Long studentID) {
+        if(!submissionSet.isEmpty()){
+            return submissionSet.stream().anyMatch((submission) -> submission.getOwner().getId().equals(studentID));
+        }
+        return false;
     }
 }

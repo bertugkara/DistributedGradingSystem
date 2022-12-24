@@ -5,6 +5,7 @@ import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingExcep
 import com.distributedstudentgradingsystem.Registration.RegistrationService;
 import com.distributedstudentgradingsystem.Users.Teacher.DTO.PojoTeacherResponseDTO;
 import com.distributedstudentgradingsystem.Users.Teacher.DTO.TeacherAddRequestDTO;
+import com.distributedstudentgradingsystem.Users.Teacher.DTO.TeacherProfileResponseDTO;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.Users.Teacher.Mapper.TeacherMapper;
 import com.distributedstudentgradingsystem.Users.Teacher.Service.TeacherService;
@@ -37,7 +38,15 @@ public class TeacherController {
     public DataResult<List<PojoTeacherResponseDTO>> getAllTeachers() {
         List<PojoTeacherResponseDTO> pojoTeacherResponseDTOList = TeacherMapper.INSTANCE.
                 entityListToResponseDtoList(teacherService.findAllTeachersAndConvertToResponseDTO());
-        return new DataResult<>( pojoTeacherResponseDTOList , !pojoTeacherResponseDTOList.isEmpty() );
+        return new DataResult<>(pojoTeacherResponseDTOList, !pojoTeacherResponseDTOList.isEmpty());
+    }
+
+    @GetMapping(value = "whoAmI")
+    @PreAuthorize("hasAuthority('TEACHER')")
+    public DataResult<TeacherProfileResponseDTO> whoAmI(@RequestParam Long id) {
+        TeacherProfileResponseDTO teacherProfileResponseDTO =
+                TeacherMapper.INSTANCE.profileEntityToResponseDTO(teacherService.whoAmI(id));
+        return new DataResult<>(teacherProfileResponseDTO, teacherProfileResponseDTO != null);
     }
 
 }

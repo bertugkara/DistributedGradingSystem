@@ -1,15 +1,19 @@
 package com.distributedstudentgradingsystem.Users.Expert.Entity;
 
+import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Homework.Entity.Homework;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Setter
@@ -18,10 +22,18 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorValue("E")
 public class Expert extends User implements Serializable {
-    @Nullable
-    private int age;
 
     @OneToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "teacher_id")
     private Teacher referencedTeacherIfExists;
+
+    @ManyToMany(mappedBy = "expertList")
+    private List<Class> classList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "expert")
+    private List<Homework> assignedSubmissions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "appointedExpert")
+    private List<HomeworkSubmission> appointedHomeworkSubmissionList = new ArrayList<>();
+
 }

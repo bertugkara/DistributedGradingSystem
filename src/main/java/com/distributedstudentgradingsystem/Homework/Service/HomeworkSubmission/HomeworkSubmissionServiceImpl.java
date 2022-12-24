@@ -1,35 +1,42 @@
 package com.distributedstudentgradingsystem.Homework.Service.HomeworkSubmission;
 
+import com.distributedstudentgradingsystem.Exception.StudentAlreadySubmittedThatHomeworkException;
 import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
+import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Homework.Repository.HomeworkSubmissionRepository;
-import com.distributedstudentgradingsystem.utilities.Result;
-import com.distributedstudentgradingsystem.utilities.SuccessResult;
+import com.distributedstudentgradingsystem.Homework.Service.Homework.HomeworkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class HomeworkSubmissionServiceImpl implements HomeworkSubmissionService {
 
     private final HomeworkSubmissionRepository homeworkSubmissionRepository;
+    private final HomeworkService homeworkService;
     private final FileService fileService;
+
     @Override
-    public Result addHomeworkSubmission(HomeworkSubmission homeworkSubmission, MultipartFile multipartFile) throws IOException {
-        File file = fileService.addFile(multipartFile, homeworkSubmission.getOwner().getId());
-        if (file == null) {
-            throw new IOException("File is corrupted");
+    public HomeworkSubmission addHomeworkSubmission(HomeworkSubmission homeworkSubmission, MultipartFile multipartFile) throws IOException, StudentAlreadySubmittedThatHomeworkException {
+        if (isStudentValidToAddSubmission
+                (homeworkSubmission.getOwner().getId(), homeworkSubmission.getHomework().getId())) {
+            throw new StudentAlreadySubmittedThatHomeworkException("You already Submitted to that file");
+        } else {
+            File file = fileService.addFile(multipartFile, homeworkSubmission.getOwner());
+            if (file == null) {
+                throw new IOException("File is corrupted");
+            }
+            homeworkSubmission.setFile(file);
+            HomeworkSubmission savedSubmission = homeworkSubmissionRepository.save(homeworkSubmission);
+            fileService.assignHomeworkSubmissionToFile(file.getId(), savedSubmission);
+            return (homeworkSubmission);
         }
-        homeworkSubmission.setFile(file);
-        homeworkSubmissionRepository.save(homeworkSubmission);
-        return new SuccessResult();
     }
 
     @Override
@@ -49,4 +56,25 @@ public class HomeworkSubmissionServiceImpl implements HomeworkSubmissionService 
     public List<HomeworkSubmission> getAllSubmissionByHomeworkId(Long id) {
         return homeworkSubmissionRepository.findAllByHomework_Id(id);
     }
+
+    @Override
+    public List<HomeworkSubmission> getAllByStudentId(Long id) {
+        if (id != null) {
+            return homeworkSubmissionRepository.findAllByOwner_Id(id);
+        }
+        return null;
+    }
+
+    @Override
+    public List<HomeworkSubmission> getAllSubmissionsByClassIdAndScoreIsNull(Long id) {
+        if (id != null) return homeworkSubmissionRepository.findAllByHomework_Lesson_IdAndGradeSubmissionNull(id);
+        else return null;
+    }
+
+    @Override
+    public Boolean isStudentValidToAddSubmission(Long studentId, Long homeworkID) {
+        Homework homework = homeworkService.getOneHomework(homeworkID);
+        return homework.isStudentAlreadySubmittedBeforeForTheGivenHomework(studentId);
+    }
+
 }

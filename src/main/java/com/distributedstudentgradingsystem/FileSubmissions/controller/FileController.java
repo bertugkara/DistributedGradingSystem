@@ -19,7 +19,7 @@ public class FileController {
 
     @GetMapping("seeFile/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT','EXPERT','TEACHER')")
-    ResponseEntity<byte[]> seeFile(@PathVariable Integer id, @RequestParam Long creatorID) {
+    ResponseEntity<byte[]> seeFile(@PathVariable Long id, @RequestParam Long creatorID) {
         return fileService.downloadFile(id,creatorID);
     }
 }

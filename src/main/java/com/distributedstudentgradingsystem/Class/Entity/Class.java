@@ -1,5 +1,6 @@
 package com.distributedstudentgradingsystem.Class.Entity;
 
+import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
@@ -7,6 +8,7 @@ import com.distributedstudentgradingsystem.common.BaseEntity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "class")
 @NoArgsConstructor
 public class Class extends BaseEntity {
@@ -29,7 +32,7 @@ public class Class extends BaseEntity {
     private String lessonCode;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher")
+    @JoinColumn(name = "teacher_id")
     private Teacher instructor;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -43,6 +46,9 @@ public class Class extends BaseEntity {
             joinColumns = @JoinColumn(name = "class_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> studentList = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "lesson")
+    private Set<Homework> homeworkSet = new HashSet<>();
 
     public void addExpert(Expert expert) {
         this.expertList.add(expert);

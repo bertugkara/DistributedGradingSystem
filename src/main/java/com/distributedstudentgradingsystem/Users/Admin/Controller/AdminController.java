@@ -6,6 +6,7 @@ import com.distributedstudentgradingsystem.Exception.EmailAlreadyInUseException;
 import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingException;
 import com.distributedstudentgradingsystem.Registration.RegistrationService;
 import com.distributedstudentgradingsystem.Users.Admin.DTO.AddAdminRequestDTO;
+import com.distributedstudentgradingsystem.Users.Admin.DTO.AdminPojoResponseDTO;
 import com.distributedstudentgradingsystem.Users.Admin.Entity.Admin;
 import com.distributedstudentgradingsystem.Users.Admin.Mapper.AdminMapper;
 import com.distributedstudentgradingsystem.Users.Admin.Service.AdminService;
@@ -40,6 +41,14 @@ public class AdminController {
                 classMapper.userInformationForClassCreatingResponseEntityToDto
                         (adminService.getUserInformationForCreatingClass());
         return new DataResult<>(userInformationForClassCreatingResponseDTO, true);
+    }
+
+    @GetMapping(value = "whoAmI")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public DataResult<AdminPojoResponseDTO> whoAmI(@RequestParam Long id) {
+        AdminPojoResponseDTO adminPojoResponseDTO = AdminMapper.INSTANCE.entityToResponseDTO(
+                adminService.findById(id));
+        return new DataResult<>(adminPojoResponseDTO, adminPojoResponseDTO != null);
     }
 
 }

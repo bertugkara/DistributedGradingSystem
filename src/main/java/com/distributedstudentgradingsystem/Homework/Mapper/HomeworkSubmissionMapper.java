@@ -5,6 +5,7 @@ import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionAddRequest;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionResponseDTO;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
+import com.distributedstudentgradingsystem.Homework.Mapper.GradeSubmission.GradeSubmissionMapper;
 import com.distributedstudentgradingsystem.Homework.Service.Homework.HomeworkService;
 import com.distributedstudentgradingsystem.Users.Student.Mapper.StudentMapper;
 import com.distributedstudentgradingsystem.Users.Student.Service.StudentService;
@@ -19,7 +20,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
         unmappedTargetPolicy = ReportingPolicy.WARN,
         uses = {HomeworkMapper.class, HomeworkService.class, StudentService.class,
-                StudentMapper.class, FileService.class, FileMapper.class})
+                StudentMapper.class, FileService.class, FileMapper.class , GradeSubmissionMapper.class})
 public abstract class HomeworkSubmissionMapper {
 
     @Autowired
