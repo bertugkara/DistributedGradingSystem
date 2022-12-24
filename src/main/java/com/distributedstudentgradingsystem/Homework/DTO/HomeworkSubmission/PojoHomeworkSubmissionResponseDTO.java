@@ -1,8 +1,5 @@
 package com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission;
 
-
-import com.distributedstudentgradingsystem.FileSubmissions.DTO.FileResponseDTO;
-import com.distributedstudentgradingsystem.Homework.DTO.GradeSubmission.GradeSubmissionResponseDTO;
 import com.distributedstudentgradingsystem.Homework.DTO.Homework.HomeworkResponseDTO;
 import com.distributedstudentgradingsystem.Users.Student.DTO.PojoStudentResponseDTO;
 import lombok.AllArgsConstructor;
@@ -16,12 +13,10 @@ import java.time.Instant;
 @Setter
 @Getter
 @AllArgsConstructor
-public class HomeworkSubmissionResponseDTO {
+public class PojoHomeworkSubmissionResponseDTO {
     private String description;
     private Long id;
     private Instant createdDate;
     private PojoStudentResponseDTO owner;
     private HomeworkResponseDTO homework;
-    private FileResponseDTO fileDTO;
-    private GradeSubmissionResponseDTO gradeSubmission;
 }

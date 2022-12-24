@@ -2,6 +2,7 @@ package com.distributedstudentgradingsystem.Users.Teacher.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ public class TeacherProfile {
     private String lastName;
     private List<Class> classList;
     private List<Homework> createdHomeworkList;
+    private List<HomeworkSubmission> homeworkSubmissionPerformedObjection;
 
     public static TeacherProfile fromTeacher(Teacher teacher,
                                              List<Class> classList,
-                                             List<Homework> homeworkList
+                                             List<Homework> homeworkList,
+                                             List<HomeworkSubmission> homeworkSubmissionList
                                              ){
         TeacherProfile teacherProfile = new TeacherProfile();
         teacherProfile.setEmail(teacher.getEmail());
@@ -31,6 +34,7 @@ public class TeacherProfile {
         teacherProfile.setLastName(teacher.getLastName());
         teacherProfile.setClassList(classList);
         teacherProfile.setCreatedHomeworkList(homeworkList);
+        teacherProfile.setHomeworkSubmissionPerformedObjection(homeworkSubmissionList);
         return teacherProfile;
     }
 }

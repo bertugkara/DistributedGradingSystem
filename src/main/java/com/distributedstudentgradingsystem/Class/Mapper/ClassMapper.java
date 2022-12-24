@@ -1,9 +1,6 @@
 package com.distributedstudentgradingsystem.Class.Mapper;
 
-import com.distributedstudentgradingsystem.Class.DTO.ClassAddRequestDTO;
-import com.distributedstudentgradingsystem.Class.DTO.ClassResponseDTO;
-import com.distributedstudentgradingsystem.Class.DTO.UserInformationForClassCreatingResponse;
-import com.distributedstudentgradingsystem.Class.DTO.UserInformationForClassCreatingResponseDTO;
+import com.distributedstudentgradingsystem.Class.DTO.*;
 import com.distributedstudentgradingsystem.Class.Entity.Class;
 import com.distributedstudentgradingsystem.Users.Admin.Mapper.AdminMapper;
 import com.distributedstudentgradingsystem.Users.Admin.Service.AdminService;
@@ -47,4 +44,6 @@ public abstract class ClassMapper {
 
     public abstract UserInformationForClassCreatingResponseDTO userInformationForClassCreatingResponseEntityToDto
             (UserInformationForClassCreatingResponse userInformationForClassCreatingResponse);
+
+    public abstract PojoClassResponseDTO entityToPojoDTO(Class obj);
 }

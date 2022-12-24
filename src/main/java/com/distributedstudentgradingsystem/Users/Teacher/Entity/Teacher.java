@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Teacher.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,4 +33,8 @@ public class Teacher extends User implements Serializable {
 
     @OneToMany(mappedBy = "creator")
     private List<Homework> createdHomework=new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "graderTeacher")
+    private List<GradeSubmission> gradeSubmissionList;
+
 }

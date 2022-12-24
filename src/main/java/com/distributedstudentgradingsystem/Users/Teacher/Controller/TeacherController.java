@@ -26,17 +26,18 @@ public class TeacherController {
 
     private final RegistrationService<Teacher> registrationService;
     private final TeacherService teacherService;
+    private final TeacherMapper teacherMapper;
 
     @PostMapping(value = "add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Result add(@RequestBody @Valid TeacherAddRequestDTO teacherAddRequestDTO) throws EmailAlreadyInUseException, UsernameAlreadyIsUsingException {
-        return registrationService.register(TeacherMapper.INSTANCE.dtoToEntity(teacherAddRequestDTO));
+        return registrationService.register(teacherMapper.dtoToEntity(teacherAddRequestDTO));
     }
 
     @GetMapping(value = "getAll")
     @PreAuthorize("hasAuthority('ADMIN')")
     public DataResult<List<PojoTeacherResponseDTO>> getAllTeachers() {
-        List<PojoTeacherResponseDTO> pojoTeacherResponseDTOList = TeacherMapper.INSTANCE.
+        List<PojoTeacherResponseDTO> pojoTeacherResponseDTOList = teacherMapper.
                 entityListToResponseDtoList(teacherService.findAllTeachersAndConvertToResponseDTO());
         return new DataResult<>(pojoTeacherResponseDTOList, !pojoTeacherResponseDTOList.isEmpty());
     }
@@ -45,7 +46,7 @@ public class TeacherController {
     @PreAuthorize("hasAuthority('TEACHER')")
     public DataResult<TeacherProfileResponseDTO> whoAmI(@RequestParam Long id) {
         TeacherProfileResponseDTO teacherProfileResponseDTO =
-                TeacherMapper.INSTANCE.profileEntityToResponseDTO(teacherService.whoAmI(id));
+                teacherMapper.profileEntityToResponseDTO(teacherService.whoAmI(id));
         return new DataResult<>(teacherProfileResponseDTO, teacherProfileResponseDTO != null);
     }
 
