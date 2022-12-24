@@ -15,4 +15,6 @@ public interface HomeworkSubmissionRepository extends JpaRepository<HomeworkSubm
 
     List<HomeworkSubmission> findAllByOwner_Id(Long id);
 
+    List<HomeworkSubmission> findAllByHomework_Lesson_IdAndGradeSubmissionNull(Long id);
+
 }

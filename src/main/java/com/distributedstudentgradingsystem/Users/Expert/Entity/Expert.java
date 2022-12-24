@@ -1,6 +1,8 @@
 package com.distributedstudentgradingsystem.Users.Expert.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Homework.Entity.Homework;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
 import lombok.AllArgsConstructor;
@@ -28,5 +30,10 @@ public class Expert extends User implements Serializable {
     @ManyToMany(mappedBy = "expertList")
     private List<Class> classList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "expert")
+    private List<Homework> assignedSubmissions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "appointedExpert")
+    private List<HomeworkSubmission> appointedHomeworkSubmissionList = new ArrayList<>();
 
 }

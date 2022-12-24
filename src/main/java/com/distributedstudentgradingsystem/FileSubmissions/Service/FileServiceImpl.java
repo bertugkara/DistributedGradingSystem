@@ -2,6 +2,7 @@ package com.distributedstudentgradingsystem.FileSubmissions.Service;
 
 import com.distributedstudentgradingsystem.FileSubmissions.Repository.FileRepository;
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -62,5 +63,12 @@ public class FileServiceImpl implements FileService {
                 .path(file.getId().toString())
                 .toUriString();
         return fileDownloadUri;
+    }
+
+    @Override
+    public void assignHomeworkSubmissionToFile(Long fileID, HomeworkSubmission homeworkSubmission) {
+       File file = fileRepository.findById(fileID).orElse(null);
+       file.setHomeworkSubmission(homeworkSubmission);
+       fileRepository.save(file);
     }
 }

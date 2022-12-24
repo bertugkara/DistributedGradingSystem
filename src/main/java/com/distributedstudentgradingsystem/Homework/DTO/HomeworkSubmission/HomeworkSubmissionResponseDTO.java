@@ -3,6 +3,7 @@ package com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission;
 
 import com.distributedstudentgradingsystem.FileSubmissions.DTO.FileResponseDTO;
 import com.distributedstudentgradingsystem.Homework.DTO.Homework.HomeworkResponseDTO;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Users.Student.DTO.PojoStudentResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,5 @@ public class HomeworkSubmissionResponseDTO {
     private PojoStudentResponseDTO owner;
     private HomeworkResponseDTO homework;
     private FileResponseDTO fileDTO;
+    private GradeSubmission gradeSubmission;
 }

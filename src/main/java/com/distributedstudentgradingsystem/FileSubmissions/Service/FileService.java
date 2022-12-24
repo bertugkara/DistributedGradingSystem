@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.FileSubmissions.Service;
 
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,4 +19,5 @@ public interface FileService {
 
     String getFileUrl(File file);
 
+    void assignHomeworkSubmissionToFile(Long fileID, HomeworkSubmission homeworkSubmission);
 }

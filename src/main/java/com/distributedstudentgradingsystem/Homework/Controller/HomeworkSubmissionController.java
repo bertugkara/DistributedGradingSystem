@@ -1,5 +1,6 @@
 package com.distributedstudentgradingsystem.Homework.Controller;
 
+import com.distributedstudentgradingsystem.Exception.StudentAlreadySubmittedThatHomeworkException;
 import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionAddRequest;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionResponseDTO;
@@ -31,7 +32,7 @@ public class HomeworkSubmissionController {
     @PostMapping(value = "addSubmission")
     @PreAuthorize("hasAnyAuthority('STUDENT')")
     public DataResult addSubmission(@RequestPart("request") @Valid HomeworkSubmissionAddRequest request,
-                                    @RequestPart("file") MultipartFile file) throws IOException {
+                                    @RequestPart("file") MultipartFile file) throws IOException, StudentAlreadySubmittedThatHomeworkException {
 
         HomeworkSubmission homeworkSubmission = homeworkSubmissionService.addHomeworkSubmission(
                 homeworkSubmissionMapper.dtoToEntity(request)
@@ -61,6 +62,21 @@ public class HomeworkSubmissionController {
         List<HomeworkSubmissionResponseDTO> homeworkSubmissionResponseDTOList =
                 homeworkSubmissionMapper.entityListToDTOList(homeworkSubmissionService.getAllSubmissionByHomeworkId(id));
         return new DataResult<>(homeworkSubmissionResponseDTOList, !homeworkSubmissionResponseDTOList.isEmpty());
+    }
+
+    @GetMapping("getAllSubmissionsByClassId/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','EXPERT','TEACHER','STUDENT')")
+    public DataResult<List<HomeworkSubmissionResponseDTO>> getAllSubmissionsByClassId(@PathVariable(name = "id") @NotBlank Long id) {
+        List<HomeworkSubmissionResponseDTO> homeworkSubmissionResponseDTOList =
+                homeworkSubmissionMapper.entityListToDTOList(homeworkSubmissionService.getAllSubmissionsByClassIdAndScoreIsNull(id));
+        return new DataResult<>(homeworkSubmissionResponseDTOList, !homeworkSubmissionResponseDTOList.isEmpty());
+    }
+
+    @GetMapping("isValidToAddSubmission")
+    @PreAuthorize("hasAnyAuthority('STUDENT')")
+    public DataResult<Boolean> isValidToAddSubmission(@RequestParam @NotBlank Long studentID,@RequestParam @NotBlank Long homeworkID) {
+        Boolean result = homeworkSubmissionService.isStudentValidToAddSubmission(studentID,homeworkID);
+        return new DataResult<>(result , result);
     }
 
 }
