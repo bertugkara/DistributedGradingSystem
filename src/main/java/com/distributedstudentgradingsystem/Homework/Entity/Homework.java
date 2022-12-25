@@ -36,7 +36,7 @@ public class Homework extends BaseEntity {
     @Size(max = 1000)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homework")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "homework")
     private Set<HomeworkSubmission> submissionSet;
 
     @ManyToOne(fetch = FetchType.EAGER)

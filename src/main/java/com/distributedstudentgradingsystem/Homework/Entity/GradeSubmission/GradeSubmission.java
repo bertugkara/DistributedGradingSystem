@@ -2,7 +2,9 @@ package com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission;
 
 
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
+import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
 import com.distributedstudentgradingsystem.Users.Student.Entity.Student;
+import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.common.BaseEntity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +34,14 @@ public class GradeSubmission extends BaseEntity {
     @Max(100)
     private short givenPoint;
 
-    private MarkState state = MarkState.NOT_GRADED;
+    @Enumerated(value = EnumType.STRING)
+    private MarkState state;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grader_teacher")
+    private Teacher graderTeacher;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grader_expert")
+    private Expert graderExpert;
 }

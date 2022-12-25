@@ -21,6 +21,8 @@ public interface HomeworkSubmissionService {
 
     List<HomeworkSubmission> getAllSubmissionsByClassIdAndScoreIsNull(Long id);
 
+    List<HomeworkSubmission> getAllByStateObjection();
+
     Boolean isStudentValidToAddSubmission(Long studentId, Long homeworkID);
 
 }

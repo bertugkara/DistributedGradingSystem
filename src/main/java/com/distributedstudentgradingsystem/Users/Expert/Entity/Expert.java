@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Expert.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
@@ -36,4 +37,6 @@ public class Expert extends User implements Serializable {
     @OneToMany(mappedBy = "appointedExpert")
     private List<HomeworkSubmission> appointedHomeworkSubmissionList = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "graderExpert")
+    private List<GradeSubmission> gradeSubmissionList;
 }

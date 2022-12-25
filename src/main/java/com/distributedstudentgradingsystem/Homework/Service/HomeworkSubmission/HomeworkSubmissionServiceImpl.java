@@ -3,6 +3,7 @@ package com.distributedstudentgradingsystem.Homework.Service.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Exception.StudentAlreadySubmittedThatHomeworkException;
 import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.MarkState;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Homework.Repository.HomeworkSubmissionRepository;
@@ -26,7 +27,7 @@ public class HomeworkSubmissionServiceImpl implements HomeworkSubmissionService 
     public HomeworkSubmission addHomeworkSubmission(HomeworkSubmission homeworkSubmission, MultipartFile multipartFile) throws IOException, StudentAlreadySubmittedThatHomeworkException {
         if (isStudentValidToAddSubmission
                 (homeworkSubmission.getOwner().getId(), homeworkSubmission.getHomework().getId())) {
-            throw new StudentAlreadySubmittedThatHomeworkException("You already Submitted to that file");
+            throw new StudentAlreadySubmittedThatHomeworkException("You already Submitted to that class");
         } else {
             File file = fileService.addFile(multipartFile, homeworkSubmission.getOwner());
             if (file == null) {
@@ -69,6 +70,11 @@ public class HomeworkSubmissionServiceImpl implements HomeworkSubmissionService 
     public List<HomeworkSubmission> getAllSubmissionsByClassIdAndScoreIsNull(Long id) {
         if (id != null) return homeworkSubmissionRepository.findAllByHomework_Lesson_IdAndGradeSubmissionNull(id);
         else return null;
+    }
+
+    @Override
+    public List<HomeworkSubmission> getAllByStateObjection() {
+        return homeworkSubmissionRepository.findHomeworkSubmissionsByGradeSubmission_State(MarkState.OBJECTION_FROM_GRADED);
     }
 
     @Override

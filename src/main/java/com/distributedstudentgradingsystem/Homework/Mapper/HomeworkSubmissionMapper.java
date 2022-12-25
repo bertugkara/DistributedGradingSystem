@@ -4,6 +4,7 @@ import com.distributedstudentgradingsystem.FileSubmissions.Mapper.FileMapper;
 import com.distributedstudentgradingsystem.FileSubmissions.Service.FileService;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionAddRequest;
 import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionResponseDTO;
+import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.PojoHomeworkSubmissionResponseDTO;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Homework.Mapper.GradeSubmission.GradeSubmissionMapper;
 import com.distributedstudentgradingsystem.Homework.Service.Homework.HomeworkService;
@@ -36,4 +37,6 @@ public abstract class HomeworkSubmissionMapper {
     public abstract HomeworkSubmissionResponseDTO entityToDTO(HomeworkSubmission homeworkSubmission);
 
     public abstract List<HomeworkSubmissionResponseDTO> entityListToDTOList(List<HomeworkSubmission> homeworkSubmission);
+
+    public abstract PojoHomeworkSubmissionResponseDTO entityToPojoDTO(HomeworkSubmission homeworkSubmission);
 }

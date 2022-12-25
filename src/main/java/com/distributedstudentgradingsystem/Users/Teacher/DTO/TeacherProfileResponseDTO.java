@@ -1,7 +1,8 @@
 package com.distributedstudentgradingsystem.Users.Teacher.DTO;
 
 import com.distributedstudentgradingsystem.Class.DTO.ClassResponseDTO;
-import com.distributedstudentgradingsystem.Homework.Entity.Homework;
+import com.distributedstudentgradingsystem.Homework.DTO.Homework.HomeworkResponseDTO;
+import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.HomeworkSubmissionResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class TeacherProfileResponseDTO {
     private String email;
     private String lastName;
     private List<ClassResponseDTO> classList;
-    private List<Homework> createdHomeworkList;
+    private List<HomeworkResponseDTO> createdHomeworkList;
+    private List<HomeworkSubmissionResponseDTO> homeworkSubmissionPerformedObjection;
 }

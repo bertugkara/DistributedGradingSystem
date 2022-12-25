@@ -3,7 +3,9 @@ package com.distributedstudentgradingsystem.Users.Teacher.Service;
 import com.distributedstudentgradingsystem.Class.Entity.Class;
 import com.distributedstudentgradingsystem.Class.Service.ClassService;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
+import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Homework.Service.Homework.HomeworkService;
+import com.distributedstudentgradingsystem.Homework.Service.HomeworkSubmission.HomeworkSubmissionService;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.Teacher;
 import com.distributedstudentgradingsystem.Users.Teacher.Entity.TeacherProfile;
 import com.distributedstudentgradingsystem.Users.Teacher.Repository.TeacherRepository;
@@ -19,6 +21,7 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
     private final ClassService classService;
     private final HomeworkService homeworkService;
+    private final HomeworkSubmissionService homeworkSubmissionService;
 
     @Override
     public Teacher findById(Long id) {
@@ -38,7 +41,8 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherRepository.findById(id).orElse(null);
         List<Class> classesByInstructorId = classService.getClassesByInstructorId(id);
         List<Homework> allHomeworksByCreatorId = homeworkService.getAllHomeworksByCreatorId(id);
-        TeacherProfile teacherProfile = TeacherProfile.fromTeacher(teacher,classesByInstructorId,allHomeworksByCreatorId);
+        List<HomeworkSubmission> homeworkSubmissionList = homeworkSubmissionService.getAllByStateObjection();
+        TeacherProfile teacherProfile = TeacherProfile.fromTeacher(teacher,classesByInstructorId,allHomeworksByCreatorId,homeworkSubmissionList);
         return teacherProfile;
     }
 }

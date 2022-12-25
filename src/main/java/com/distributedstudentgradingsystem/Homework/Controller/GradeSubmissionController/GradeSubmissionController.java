@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Homework.Controller.GradeSubmissionController;
 
-import com.distributedstudentgradingsystem.Homework.DTO.HomeworkSubmission.GradeSubmissionAddRequest;
+import com.distributedstudentgradingsystem.Homework.DTO.GradeSubmission.GradeSubmissionAddRequest;
+import com.distributedstudentgradingsystem.Homework.DTO.GradeSubmission.GradeSubmissionUpdateRequest;
 import com.distributedstudentgradingsystem.Homework.Mapper.GradeSubmission.GradeSubmissionMapper;
 import com.distributedstudentgradingsystem.Homework.Service.GradeSubmission.GradeSubmissionService;
 import com.distributedstudentgradingsystem.utilities.Result;
@@ -24,4 +25,31 @@ public class GradeSubmissionController {
     public Result gradeSubmission(@RequestBody @NotBlank GradeSubmissionAddRequest request) {
         return gradeSubmissionService.gradeSubmission(gradeSubmissionMapper.dtoToEntity(request));
     }
+
+    @PostMapping("performObjection")
+    @PreAuthorize("hasAuthority('STUDENT')")
+    public Result performObjection(@RequestParam @NotBlank Long gradeSubmissionId,
+                                   @RequestParam @NotBlank Long userPerformedObjectionId) {
+        return gradeSubmissionService.performObjection(gradeSubmissionId, userPerformedObjectionId);
+    }
+
+    @PostMapping("updateSubmissionTeacher")
+    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    public Result updateSubmissionTeacher(@RequestBody @NotBlank GradeSubmissionUpdateRequest request) {
+        return gradeSubmissionService.updateSubmission(gradeSubmissionMapper.updateDtoToEntity(request), request.getCurrentGradeSubmissionId());
+    }
+
+    @PostMapping("redirectToExpert")
+    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    public Result redirectToExpert(@RequestParam(name = "id") @NotBlank Long id) {
+        return gradeSubmissionService.redirectToExpert(id);
+    }
+
+    @PostMapping("updateSubmissionExpert")
+    @PreAuthorize("hasAnyAuthority('EXPERT')")
+    public Result updateSubmissionExpert(@RequestBody @NotBlank GradeSubmissionUpdateRequest request) {
+        return gradeSubmissionService.updateSubmission(gradeSubmissionMapper.updateDtoToEntity(request), request.getCurrentGradeSubmissionId());
+    }
+
+
 }
