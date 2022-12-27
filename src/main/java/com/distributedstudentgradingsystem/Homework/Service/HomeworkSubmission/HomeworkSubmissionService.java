@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Homework.Service.HomeworkSubmission;
 
 import com.distributedstudentgradingsystem.Exception.StudentAlreadySubmittedThatHomeworkException;
+import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.MarkState;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,7 @@ public interface HomeworkSubmissionService {
 
     List<HomeworkSubmission> getAllSubmissionsByClassIdAndScoreIsNull(Long id);
 
-    List<HomeworkSubmission> getAllByStateObjection();
+    List<HomeworkSubmission> getAllByStateObjection(MarkState markState);
 
     Boolean isStudentValidToAddSubmission(Long studentId, Long homeworkID);
 

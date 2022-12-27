@@ -1,5 +1,6 @@
 package com.distributedstudentgradingsystem.Homework.Entity;
 
+import com.distributedstudentgradingsystem.Comment.Entity.Comment;
 import com.distributedstudentgradingsystem.FileSubmissions.entity.File;
 import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
@@ -13,6 +14,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -47,4 +50,6 @@ public class HomeworkSubmission extends BaseEntity {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "submission")
     private GradeSubmission gradeSubmission;
 
+    @OneToMany(mappedBy = "homeworkSubmission")
+    private List<Comment> commentList= new ArrayList<>();
 }

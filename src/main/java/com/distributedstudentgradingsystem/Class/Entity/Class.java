@@ -62,4 +62,12 @@ public class Class extends BaseEntity {
         this.studentList.addAll(studentList);
     }
 
+    public void updateClass(Class updatedClass){
+        this.name = updatedClass.getName();
+        this.description = updatedClass.getDescription();
+        this.lessonCode = updatedClass.getLessonCode();
+        this.expertList=updatedClass.getExpertList();
+        this.studentList = updatedClass.getStudentList();
+        this.instructor = updatedClass.getInstructor();
+    }
 }

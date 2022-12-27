@@ -73,8 +73,8 @@ public class HomeworkSubmissionServiceImpl implements HomeworkSubmissionService 
     }
 
     @Override
-    public List<HomeworkSubmission> getAllByStateObjection() {
-        return homeworkSubmissionRepository.findHomeworkSubmissionsByGradeSubmission_State(MarkState.OBJECTION_FROM_GRADED);
+    public List<HomeworkSubmission> getAllByStateObjection(MarkState markState) {
+        return homeworkSubmissionRepository.findHomeworkSubmissionsByGradeSubmission_State(markState);
     }
 
     @Override

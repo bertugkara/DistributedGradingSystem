@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Teacher.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Comment.Entity.Comment;
 import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
@@ -36,5 +37,8 @@ public class Teacher extends User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "graderTeacher")
     private List<GradeSubmission> gradeSubmissionList;
+
+    @OneToMany(mappedBy = "writerTeacher")
+    private List<Comment> commentList= new ArrayList<>();
 
 }

@@ -15,5 +15,7 @@ public interface StudentService {
     List<Student> findAllStudents();
 
     StudentProfile whoAmI(Long id);
+    Boolean classFailSuccessCheck(Long classID, Long studentID);
+
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 public class TeacherProfile {
-
+    private Long id;
     private String firstName;
     private String email;
     private String lastName;
@@ -29,6 +29,7 @@ public class TeacherProfile {
                                              List<HomeworkSubmission> homeworkSubmissionList
                                              ){
         TeacherProfile teacherProfile = new TeacherProfile();
+        teacherProfile.setId(teacher.getId());
         teacherProfile.setEmail(teacher.getEmail());
         teacherProfile.setFirstName(teacher.getFirstName());
         teacherProfile.setLastName(teacher.getLastName());

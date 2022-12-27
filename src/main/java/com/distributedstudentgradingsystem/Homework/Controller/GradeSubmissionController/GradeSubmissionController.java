@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class GradeSubmissionController {
 
     @PostMapping("gradeSubmission")
     @PreAuthorize("hasAnyAuthority('EXPERT','STUDENT')")
-    public Result gradeSubmission(@RequestBody @NotBlank GradeSubmissionAddRequest request) {
+    public Result gradeSubmission(@RequestBody @NotBlank @Valid GradeSubmissionAddRequest request) {
         return gradeSubmissionService.gradeSubmission(gradeSubmissionMapper.dtoToEntity(request));
     }
 
@@ -35,7 +36,7 @@ public class GradeSubmissionController {
 
     @PostMapping("updateSubmissionTeacher")
     @PreAuthorize("hasAnyAuthority('TEACHER')")
-    public Result updateSubmissionTeacher(@RequestBody @NotBlank GradeSubmissionUpdateRequest request) {
+    public Result updateSubmissionTeacher(@RequestBody @NotBlank @Valid GradeSubmissionUpdateRequest request) {
         return gradeSubmissionService.updateSubmission(gradeSubmissionMapper.updateDtoToEntity(request), request.getCurrentGradeSubmissionId());
     }
 
@@ -47,7 +48,7 @@ public class GradeSubmissionController {
 
     @PostMapping("updateSubmissionExpert")
     @PreAuthorize("hasAnyAuthority('EXPERT')")
-    public Result updateSubmissionExpert(@RequestBody @NotBlank GradeSubmissionUpdateRequest request) {
+    public Result updateSubmissionExpert(@RequestBody @NotBlank @Valid GradeSubmissionUpdateRequest request) {
         return gradeSubmissionService.updateSubmission(gradeSubmissionMapper.updateDtoToEntity(request), request.getCurrentGradeSubmissionId());
     }
 

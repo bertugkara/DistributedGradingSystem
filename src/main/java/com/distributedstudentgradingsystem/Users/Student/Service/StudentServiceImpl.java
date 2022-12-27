@@ -57,5 +57,16 @@ public class StudentServiceImpl implements StudentService {
         return studentProfile;
     }
 
+    @Override
+    public Boolean classFailSuccessCheck(Long classID, Long studentID) {
+        if (classID != null && studentID != null) {
+            Student student = studentRepository.findById(studentID).orElse(null);
+            if (student != null) {
+                Boolean result = student.isStudentPassedTheClass(classID);
+                return result;
+            }
+        }
+        return null;
+    }
 
 }

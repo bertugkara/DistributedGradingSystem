@@ -2,6 +2,7 @@ package com.distributedstudentgradingsystem.Class.Controller;
 
 import com.distributedstudentgradingsystem.Class.DTO.ClassAddRequestDTO;
 import com.distributedstudentgradingsystem.Class.DTO.ClassResponseDTO;
+import com.distributedstudentgradingsystem.Class.DTO.ClassUpdateRequest;
 import com.distributedstudentgradingsystem.Class.Mapper.ClassMapper;
 import com.distributedstudentgradingsystem.Class.Service.ClassService;
 import com.distributedstudentgradingsystem.utilities.DataResult;
@@ -40,4 +41,14 @@ public class ClassController {
     public DataResult<ClassResponseDTO> getOne(@PathVariable(name = "id") Long id){
         return new SuccessDataResult<>(classMapper.entityToDTO(classService.getOne(id))) ;
     }
+
+    @PostMapping(value = "update")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Result update(@RequestBody @Valid ClassUpdateRequest classUpdateRequest) {
+        System.out.println(classUpdateRequest.toString());
+        return classService.updateClass(classMapper.updateDtoToEntity(classUpdateRequest),classUpdateRequest.getId());
+    }
+
+
+
 }

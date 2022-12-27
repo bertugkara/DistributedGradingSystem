@@ -5,7 +5,6 @@ import com.distributedstudentgradingsystem.Exception.UsernameAlreadyIsUsingExcep
 import com.distributedstudentgradingsystem.Exception.enums.RegistrationError;
 import com.distributedstudentgradingsystem.Users.Admin.Entity.Admin;
 import com.distributedstudentgradingsystem.Users.Expert.Entity.Expert;
-import com.distributedstudentgradingsystem.Users.Expert.Repository.ExpertRepository;
 import com.distributedstudentgradingsystem.Users.Role.entity.Role;
 import com.distributedstudentgradingsystem.Users.Role.entity.UserRole;
 import com.distributedstudentgradingsystem.Users.Role.repository.RoleRepository;
@@ -29,7 +28,6 @@ import java.util.Set;
 public class RegistrationServiceImpl<T extends User> implements RegistrationService<T> {
 
     private final UserRepository<T> userRepository;
-    private final ExpertRepository expertRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 

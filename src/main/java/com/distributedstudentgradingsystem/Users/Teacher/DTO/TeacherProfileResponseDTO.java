@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class TeacherProfileResponseDTO {
+    private Long id;
     private String firstName;
     private String email;
     private String lastName;

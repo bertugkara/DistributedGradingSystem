@@ -2,6 +2,7 @@ package com.distributedstudentgradingsystem.Users.Expert.Mapper;
 
 import com.distributedstudentgradingsystem.Class.Mapper.ClassMapper;
 import com.distributedstudentgradingsystem.Homework.Mapper.HomeworkMapper;
+import com.distributedstudentgradingsystem.Homework.Mapper.HomeworkSubmissionMapper;
 import com.distributedstudentgradingsystem.Users.Expert.DTO.ExpertAddRequestDTO;
 import com.distributedstudentgradingsystem.Users.Expert.DTO.ExpertProfileResponseDTO;
 import com.distributedstudentgradingsystem.Users.Expert.DTO.PojoExpertResponseDTO;
@@ -16,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Mapper(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
-        componentModel = "spring" , uses = {ClassMapper.class, HomeworkMapper.class})
+        componentModel = "spring" , uses = {ClassMapper.class, HomeworkMapper.class, HomeworkSubmissionMapper.class})
 public abstract class ExpertMapper {
 
     @Autowired

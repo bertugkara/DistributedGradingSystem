@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Student.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Comment.Entity.Comment;
 import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
 import com.distributedstudentgradingsystem.Users.User.Entity.User;
@@ -31,15 +32,21 @@ public class Student extends User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "graderStudent")
     private List<GradeSubmission> gradeSubmissionList;
 
+    @OneToMany(mappedBy = "writerStudent")
+    private List<Comment> commentList= new ArrayList<>();
+
     public boolean isStudentPassedTheClass(Long classID) {
         short submissionCount = (short) homeworkSubmissions.size();
-        int score = homeworkSubmissions.stream().
-                filter(homeworkSubmission ->
-                        homeworkSubmission.getHomework().getLesson().getId().equals(classID) && homeworkSubmission.getGradeSubmission() != null)
-                .map(homeworkSubmission -> homeworkSubmission.getGradeSubmission().getGivenPoint())
-                .mapToInt(Short::intValue)
-                .sum();
-        return score >= submissionCount * 50 ? true : false;
+        if(submissionCount>0) {
+            int score = homeworkSubmissions.stream().
+                    filter(homeworkSubmission ->
+                            homeworkSubmission.getHomework().getLesson().getId().equals(classID) && homeworkSubmission.getGradeSubmission() != null)
+                    .map(homeworkSubmission -> homeworkSubmission.getGradeSubmission().getGivenPoint())
+                    .mapToInt(Short::intValue)
+                    .sum();
+            return score >= submissionCount * 50 ? true : false;
+        }
+        return false;
     }
 
 }

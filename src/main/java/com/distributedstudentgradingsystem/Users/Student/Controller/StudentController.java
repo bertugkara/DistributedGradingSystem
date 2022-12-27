@@ -11,6 +11,7 @@ import com.distributedstudentgradingsystem.Users.Student.Mapper.StudentMapper;
 import com.distributedstudentgradingsystem.Users.Student.Service.StudentService;
 import com.distributedstudentgradingsystem.utilities.DataResult;
 import com.distributedstudentgradingsystem.utilities.Result;
+import com.distributedstudentgradingsystem.utilities.SuccessDataResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -51,4 +52,9 @@ public class StudentController {
         return new DataResult<>(studentProfileResponseDTO, studentProfileResponseDTO != null);
     }
 
+    @GetMapping(value = "controlSuccess")
+    @PreAuthorize("hasAnyAuthority('STUDENT')")
+    public DataResult<Boolean> getOne(@RequestParam Long classId, @RequestParam Long studentID){
+        return new SuccessDataResult<>(studentService.classFailSuccessCheck(classId,studentID));
+    }
 }

@@ -1,6 +1,7 @@
 package com.distributedstudentgradingsystem.Users.Expert.Entity;
 
 import com.distributedstudentgradingsystem.Class.Entity.Class;
+import com.distributedstudentgradingsystem.Comment.Entity.Comment;
 import com.distributedstudentgradingsystem.Homework.Entity.GradeSubmission.GradeSubmission;
 import com.distributedstudentgradingsystem.Homework.Entity.Homework;
 import com.distributedstudentgradingsystem.Homework.Entity.HomeworkSubmission;
@@ -24,7 +25,7 @@ import java.util.List;
 @DiscriminatorValue("E")
 public class Expert extends User implements Serializable {
 
-    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private Teacher referencedTeacherIfExists;
 
@@ -39,4 +40,7 @@ public class Expert extends User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "graderExpert")
     private List<GradeSubmission> gradeSubmissionList;
+
+    @OneToMany(mappedBy = "writerExpert")
+    private List<Comment> commentList= new ArrayList<>();
 }

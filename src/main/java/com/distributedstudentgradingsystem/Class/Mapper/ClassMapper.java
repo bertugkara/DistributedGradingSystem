@@ -46,4 +46,11 @@ public abstract class ClassMapper {
             (UserInformationForClassCreatingResponse userInformationForClassCreatingResponse);
 
     public abstract PojoClassResponseDTO entityToPojoDTO(Class obj);
+
+    @Mappings({
+            @Mapping(target = "instructor", expression = "java(teacherService.findById(classUpdateRequest.getInstructor()))"),
+            @Mapping(target = "expertList", expression = "java(expertService.findByIdList(classUpdateRequest.getExpertList()))"),
+            @Mapping(target = "studentList", expression = "java(studentService.findByIdList(classUpdateRequest.getStudentList()))")
+    })
+    public abstract Class updateDtoToEntity(ClassUpdateRequest classUpdateRequest);
 }
